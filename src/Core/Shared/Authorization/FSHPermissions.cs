@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 
 namespace FSH.WebApi.Shared.Authorization;
@@ -29,7 +30,11 @@ public static class FSHResource
     public const string Roles = nameof(Roles);
     public const string RoleClaims = nameof(RoleClaims);
     public const string Products = nameof(Products);
+    public const string Interviews = nameof(Interviews);
+    public const string Applications = nameof(Applications);
     public const string Brands = nameof(Brands);
+    public const string JobPostings = nameof(JobPostings);
+    public const string CandidateInfos = nameof(CandidateInfos);
 }
 
 public static class FSHPermissions
@@ -60,6 +65,18 @@ public static class FSHPermissions
         new("Update Products", FSHAction.Update, FSHResource.Products),
         new("Delete Products", FSHAction.Delete, FSHResource.Products),
         new("Export Products", FSHAction.Export, FSHResource.Products),
+        new("View Applications", FSHAction.View, FSHResource.Applications, IsBasic: true),
+        new("Search Applications", FSHAction.Search, FSHResource.Applications, IsBasic: true),
+        new("Create Applications", FSHAction.Create, FSHResource.Applications),
+        new("Update Applications", FSHAction.Update, FSHResource.Applications),
+        new("Delete Applications", FSHAction.Delete, FSHResource.Applications),
+        new("Export Applications", FSHAction.Export, FSHResource.Applications),
+        new("View Interviews", FSHAction.View, FSHResource.Interviews, IsBasic: true),
+        new("Search Interviews", FSHAction.Search, FSHResource.Interviews, IsBasic: true),
+        new("Create Interviews", FSHAction.Create, FSHResource.Interviews),
+        new("Update Interviews", FSHAction.Update, FSHResource.Interviews),
+        new("Delete Interviews", FSHAction.Delete, FSHResource.Interviews),
+        new("Export Interviews", FSHAction.Export, FSHResource.Interviews),
         new("View Brands", FSHAction.View, FSHResource.Brands, IsBasic: true),
         new("Search Brands", FSHAction.Search, FSHResource.Brands, IsBasic: true),
         new("Create Brands", FSHAction.Create, FSHResource.Brands),
@@ -67,6 +84,20 @@ public static class FSHPermissions
         new("Delete Brands", FSHAction.Delete, FSHResource.Brands),
         new("Generate Brands", FSHAction.Generate, FSHResource.Brands),
         new("Clean Brands", FSHAction.Clean, FSHResource.Brands),
+        new("View Job Postings", FSHAction.View, FSHResource.JobPostings, IsBasic: true),
+        new("Search Job Postings", FSHAction.Search, FSHResource.JobPostings, IsBasic: true),
+        new("Create Job Postings", FSHAction.Create, FSHResource.JobPostings),
+        new("Update Job Postings", FSHAction.Update, FSHResource.JobPostings),
+        new("Delete Job Postings", FSHAction.Delete, FSHResource.JobPostings),
+        new("Generate Job Postings", FSHAction.Generate, FSHResource.JobPostings),
+        new("Clean Job Postings", FSHAction.Clean, FSHResource.JobPostings),
+        new("View Candidate Informations", FSHAction.View, FSHResource.CandidateInfos, IsBasic: true),
+        new("Search Candidate Informations", FSHAction.Search, FSHResource.CandidateInfos, IsBasic: true),
+        new("Create Candidate Informations", FSHAction.Create, FSHResource.CandidateInfos),
+        new("Update Candidate Informations", FSHAction.Update, FSHResource.CandidateInfos),
+        new("Delete Candidate Informations", FSHAction.Delete, FSHResource.CandidateInfos),
+        new("Generate Candidate Informations", FSHAction.Generate, FSHResource.CandidateInfos),
+        new("Clean Candidate Informations", FSHAction.Clean, FSHResource.CandidateInfos),
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
         new("Update Tenants", FSHAction.Update, FSHResource.Tenants, IsRoot: true),

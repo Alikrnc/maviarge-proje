@@ -17,6 +17,10 @@ public class ApplicationDbContext : BaseDbContext
 
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Brand> Brands => Set<Brand>();
+    public DbSet<FSH.WebApi.Domain.Catalog.Application> Applications => Set<FSH.WebApi.Domain.Catalog.Application>();
+    public DbSet<Interview> Interviews => Set<Interview>();
+    public DbSet<CandidateInfo> CandidateInfos => Set<CandidateInfo>();
+    public DbSet<JobPosting> JobPostings => Set<JobPosting>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

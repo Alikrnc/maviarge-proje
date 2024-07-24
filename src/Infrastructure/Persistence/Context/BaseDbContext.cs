@@ -54,14 +54,14 @@ public abstract class BaseDbContext : MultiTenantIdentityDbContext<ApplicationUs
         // optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
 
         // Forced separate database per tenant. This is if check is not needed since each tenant must have a connection string.
-        //if (!string.IsNullOrWhiteSpace(TenantInfo?.ConnectionString))
-        //{
-        //    optionsBuilder.UseDatabase(_dbSettings.DBProvider, TenantInfo.ConnectionString);
-        //}
+        if (!string.IsNullOrWhiteSpace(TenantInfo?.ConnectionString))
+        {
+            optionsBuilder.UseDatabase(_dbSettings.DBProvider, TenantInfo.ConnectionString);
+        }
 
         // Comment the next line while doing migrations or you will get ObjectReferenceNotSetException
-        optionsBuilder.UseDatabase(_dbSettings.DBProvider, TenantInfo.ConnectionString
-            ?? throw new ArgumentNullException(paramName: nameof(TenantInfo.ConnectionString), message: $"Tenant ({TenantInfo.Id})'s connection string is null which should not be possible!"));
+        //optionsBuilder.UseDatabase(_dbSettings.DBProvider, TenantInfo.ConnectionString
+        //    ?? throw new ArgumentNullException(paramName: nameof(TenantInfo.ConnectionString), message: $"Tenant ({TenantInfo.Id})'s connection string is null which should not be possible!"));
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
