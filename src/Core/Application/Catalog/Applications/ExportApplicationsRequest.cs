@@ -5,7 +5,7 @@ namespace FSH.WebApi.Application.Catalog.Applications;
 public class ExportApplicationsRequest : BaseFilter, IRequest<Stream>
 {
     public Guid? JobPostingId { get; set; }
-    public Guid? CandidateInfoId { get; set; }
+    public Guid? UserId { get; set; }
 }
 
 public class ExportApplicationsRequestHandler : IRequestHandler<ExportApplicationsRequest, Stream>
@@ -35,6 +35,6 @@ public class ExportApplicationsWithJobPostingsSpecification : EntitiesByBaseFilt
         : base(request) =>
         Query
             .Include(j => j.JobPosting)
-            .Include(ci => ci.CandidateInfoId)
+            .Include(ci => ci.UserId)
             .Where(j => j.JobPostingId.Equals(request.JobPostingId!.Value), request.JobPostingId.HasValue);
 }

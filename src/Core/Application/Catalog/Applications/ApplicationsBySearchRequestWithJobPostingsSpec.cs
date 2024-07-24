@@ -6,7 +6,6 @@ public class ApplicationsBySearchRequestWithJobPostingsSpec : EntitiesByPaginati
         : base(request) =>
         Query
             .Include(j => j.JobPosting)
-            .Include(ci => ci.CandidateInfo)
             .OrderBy(n => n.Name, !request.HasOrderBy())
             .Where(j => j.JobPostingId.Equals(request.JobPostingId!.Value), request.JobPostingId.HasValue);
 }

@@ -8,7 +8,6 @@ public class UpdateApplicationRequest : IRequest<Guid>
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
     public Guid JobPostingId { get; set; }
-    public Guid CandidateInfoId { get; set; }
 }
 
 public class UpdateApplicationRequestHandler : IRequestHandler<UpdateApplicationRequest, Guid>
@@ -26,7 +25,7 @@ public class UpdateApplicationRequestHandler : IRequestHandler<UpdateApplication
 
         _ = application ?? throw new NotFoundException(_t["Application {0} Not Found.", request.Id]);
 
-        var updatedApplication = application.Update(request.Name, request.Description, request.JobPostingId, request.CandidateInfoId);
+        var updatedApplication = application.Update(request.Name, request.Description, request.JobPostingId);
 
         // Add Domain Events to be raised after the commit
         application.DomainEvents.Add(EntityUpdatedEvent.WithEntity(application));

@@ -7,6 +7,7 @@ public class ApplicationDto : IDto
     public string? Description { get; set; }
     public Guid JobPostingId { get; set; }
     public string JobPostingName { get; set; } = default!;
-    public Guid CandidateInfoId { get; set; }
-    public string CandidateInfoName { get; set; } = default!;
+    public Guid UserId { get; set; }
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
 }

@@ -21,6 +21,16 @@ public class CurrentUser : ICurrentUser, ICurrentUserInitializer
             ? _user!.GetEmail()
             : string.Empty;
 
+    public string? GetUserFirstName() =>
+        IsAuthenticated()
+            ? _user!.GetFirstName()
+            : string.Empty;
+
+    public string? GetUserLastName() =>
+        IsAuthenticated()
+            ? _user!.GetSurname()
+            : string.Empty;
+
     public bool IsAuthenticated() =>
         _user?.Identity?.IsAuthenticated is true;
 

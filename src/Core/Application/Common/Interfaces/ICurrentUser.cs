@@ -8,6 +8,8 @@ public interface ICurrentUser
 
     Guid GetUserId();
 
+    string? GetUserFirstName();
+    string? GetUserLastName();
     string? GetUserEmail();
 
     string? GetTenant();

@@ -10,6 +10,7 @@ public class JobPosting : AuditableEntity, IAggregateRoot
         // Only needed for working with dapper (See GetProductViaDapperRequest)
         // If you're not using dapper it's better to remove this constructor.
     }
+
     public JobPosting(string name, string? description)
     {
         Name = name;

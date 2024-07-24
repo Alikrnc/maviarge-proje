@@ -31,8 +31,7 @@ public class GetApplicationViaDapperRequestHandler : IRequestHandler<GetApplicat
             Id = application.Id,
             JobPostingId = application.JobPostingId,
             JobPostingName = string.Empty,
-            CandidateInfoId = application.CandidateInfoId,
-            CandidateInfoName = string.Empty,
+            UserId = application.UserId,
             Description = application.Description,
             Name = application.Name
         };
