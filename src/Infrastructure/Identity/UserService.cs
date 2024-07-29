@@ -31,6 +31,7 @@ internal partial class UserService : IUserService
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly ApplicationDbContext _db;
     private readonly IStringLocalizer _t;
+    private readonly ICurrentUser _currentUser;
     private readonly IJobService _jobService;
     private readonly IMailService _mailService;
     private readonly SecuritySettings _securitySettings;
@@ -50,6 +51,7 @@ internal partial class UserService : IUserService
         ApplicationDbContext db,
         IStringLocalizer<UserService> localizer,
         IJobService jobService,
+        ICurrentUser currentUser,
         IMailService mailService,
         IEmailTemplateService templateService,
         IFileStorageService fileStorage,
@@ -67,6 +69,7 @@ internal partial class UserService : IUserService
         _db = db;
         _t = localizer;
         _jobService = jobService;
+        _currentUser = currentUser;
         _mailService = mailService;
         _templateService = templateService;
         _fileStorage = fileStorage;

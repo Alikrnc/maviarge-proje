@@ -36,6 +36,7 @@ public interface IUserService : ITransientService
     Task<string> CreateAsync(CreateUserRequest request, string origin);
 
     Task UpdateAsync(UpdateUserRequest request, string userId);
+    Task UploadPhotoAsync(UploadPhotoRequest request);
 
     Task<string> ConfirmEmailAsync(string userId, string code, string tenant, CancellationToken cancellationToken);
 
@@ -48,6 +49,6 @@ public interface IUserService : ITransientService
     Task ChangePasswordAsync(ChangePasswordRequest request, string userId);
 
     Task<string> SendPushNotificationsAsync(SendPushNotificationsRequest request, CancellationToken cancellationToken);
-    
+
     Task<string> SendSmsAsync(SendSmsRequest request, CancellationToken cancellationToken);
 }

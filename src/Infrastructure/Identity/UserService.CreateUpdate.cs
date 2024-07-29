@@ -1,9 +1,12 @@
 ﻿using System.Security.Claims;
+using DocumentFormat.OpenXml.Spreadsheet;
 using FSH.WebApi.Application.Common.Exceptions;
+using FSH.WebApi.Application.Common.Interfaces;
 using FSH.WebApi.Application.Common.Mailing;
 using FSH.WebApi.Application.Identity.Users;
 using FSH.WebApi.Domain.Common;
 using FSH.WebApi.Domain.Identity;
+using FSH.WebApi.Infrastructure.Auth;
 using FSH.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -162,25 +165,24 @@ internal partial class UserService
                 _fileStorage.Remove(Path.Combine(root, currentImage));
             }
         }
+    }
 
-        user.FirstName = request.FirstName;
-        user.LastName = request.LastName;
-        user.PhoneNumber = request.PhoneNumber;
-        string? phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-        if (request.PhoneNumber != phoneNumber)
+    public async Task UploadPhotoAsync(UploadPhotoRequest request)
+    {
+        var user = await _userManager.FindByIdAsync(_currentUser.GetUserId().ToString());
+
+        _ = user ?? throw new NotFoundException(_t["User Not Found."]);
+
+        string currentImage = user.ImageUrl ?? string.Empty;
+        if (request.Image != null || request.DeleteCurrentImage)
         {
-            await _userManager.SetPhoneNumberAsync(user, request.PhoneNumber);
+            user.ImageUrl = await _fileStorage.UploadAsync<UserDetailsDto>(request.Image, FileType.Image);
+            if (request.DeleteCurrentImage && !string.IsNullOrEmpty(currentImage))
+            {
+                string root = Directory.GetCurrentDirectory();
+                _fileStorage.Remove(Path.Combine(root, currentImage));
+            }
         }
 
-        var result = await _userManager.UpdateAsync(user);
-
-        await _signInManager.RefreshSignInAsync(user);
-
-        await _events.PublishAsync(new ApplicationUserUpdatedEvent(user.Id));
-
-        if (!result.Succeeded)
-        {
-            throw new InternalServerException(_t["Update profile failed"], result.GetErrors(_t));
-        }
     }
 }

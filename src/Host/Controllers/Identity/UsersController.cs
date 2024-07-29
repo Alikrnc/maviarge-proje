@@ -1,5 +1,8 @@
+using FSH.WebApi.Application.Catalog.Applications;
+using FSH.WebApi.Application.Common.Interfaces;
 using FSH.WebApi.Application.Identity.Users;
 using FSH.WebApi.Application.Identity.Users.Password;
+using System.Security.Claims;
 
 namespace FSH.WebApi.Host.Controllers.Identity;
 
@@ -144,6 +147,6 @@ public class UsersController : VersionNeutralApiController
     // (UserExists Path) CheckUserExistenceWithPhoneNumber -> SendSmsOtp -> GetTokenWithPhoneNumber(confirm otp here)
     // (UserDoesNotExists Path) CheckUserExistenceWithPhoneNumber -> SendSmsOtp -> ConfirmSmsOtp -> SelfRegister -> GetTokenWithPhoneNumber(confirm same otp here also??)
     // This api-flow ensures user have its claimed phone number before proceeding any further.Therefore nobody can register with other's phone number.
-    
+
     private string GetOriginFromRequest() => $"{Request.Scheme}://{Request.Host.Value}{Request.PathBase.Value}";
 }

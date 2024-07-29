@@ -4,8 +4,8 @@ public class ApplicationByIdWithJobPostingSpec : Specification<FSH.WebApi.Domain
 {
     public ApplicationByIdWithJobPostingSpec(Guid id)
     {
-            Query
-                .Where(j => j.Id == id)
-                .Include(j => j.JobPosting);
+        Query
+            .Where(j => j.Id == id)
+            .Include(j => j.JobPosting);
     }
 }

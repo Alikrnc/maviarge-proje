@@ -1,6 +1,12 @@
 using System.Security.Claims;
+using FSH.WebApi.Application.Common.Exceptions;
+using System.Threading;
 using FSH.WebApi.Application.Identity.Users;
 using FSH.WebApi.Application.Identity.Users.Password;
+using FSH.WebApi.Domain.Identity;
+using FSH.WebApi.Shared.Events;
+using Microsoft.AspNetCore.Identity;
+using FSH.WebApi.Application.Catalog.Applications;
 
 namespace FSH.WebApi.Host.Controllers.Identity;
 
@@ -29,6 +35,19 @@ public class PersonalController : VersionNeutralApiController
         }
 
         await _userService.UpdateAsync(request, userId);
+        return Ok();
+    }
+
+    [HttpPut("profile-photo")]
+    [OpenApiOperation("Update profile photo of currently logged in user.", "")]
+    public async Task<ActionResult> UploadPhotoAsync(UploadPhotoRequest request)
+    {
+        if (User.GetUserId() is not { } userId || string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        await _userService.UploadPhotoAsync(request);
         return Ok();
     }
 

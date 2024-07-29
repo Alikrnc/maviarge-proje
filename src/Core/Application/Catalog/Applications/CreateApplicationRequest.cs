@@ -25,10 +25,10 @@ public class CreateApplicationRequestHandler : IRequestHandler<CreateApplication
         var jobPosting = await _jobRepo.GetByIdAsync(request.JobPostingId, cancellationToken) ?? throw new NotFoundException($"Job posting with ID {request.JobPostingId} not found.");
 
         string jobPostingName = jobPosting.Name;
-        string applicationName = $"{jobPostingName}_{_currentUser.GetUserId()}";
         Guid userId = _currentUser.GetUserId();
         string firstName = _currentUser.GetUserFirstName();
         string lastName = _currentUser.GetUserLastName();
+        string applicationName = $"Basvuru_{userId}";
 
         var application = new FSH.WebApi.Domain.Catalog.Application(applicationName, request.Description, request.JobPostingId, userId, firstName, lastName);
 

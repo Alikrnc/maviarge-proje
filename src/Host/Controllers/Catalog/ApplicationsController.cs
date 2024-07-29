@@ -4,10 +4,18 @@ namespace FSH.WebApi.Host.Controllers.Catalog;
 
 public class ApplicationsController : VersionedApiController
 {
-    [HttpPost("search")]
+    [HttpPost("search_applications")]
     [MustHavePermission(FSHAction.Search, FSHResource.Applications)]
     [OpenApiOperation("Search applications using available filters.", "")]
     public Task<PaginationResponse<ApplicationDto>> SearchAsync(SearchApplicationsRequest request)
+    {
+        return Mediator.Send(request);
+    }
+
+    [HttpPost("search_applicants")]
+    [MustHavePermission(FSHAction.Search, FSHResource.Applications)]
+    [OpenApiOperation("Search applicants using available filters.", "")]
+    public Task<PaginationResponse<ApplicantDto>> SearchAsync(SearchApplicantsRequest request)
     {
         return Mediator.Send(request);
     }

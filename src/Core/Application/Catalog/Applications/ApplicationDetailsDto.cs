@@ -9,5 +9,7 @@ public class ApplicationDetailsDto : IDto
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
     public JobPostingDto JobPosting { get; set; } = default!;
-    public UserDetailsDto User { get; set; } = default!;
+    public Guid UserId { get; set; } = default!;
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
 }

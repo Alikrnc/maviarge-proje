@@ -1,3 +1,5 @@
+using FSH.WebApi.Domain.Identity;
+
 namespace FSH.WebApi.Domain.Catalog;
 
 public class Application : AuditableEntity, IAggregateRoot

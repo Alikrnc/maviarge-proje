@@ -34,7 +34,6 @@ public static class FSHResource
     public const string Applications = nameof(Applications);
     public const string Brands = nameof(Brands);
     public const string JobPostings = nameof(JobPostings);
-    public const string CandidateInfos = nameof(CandidateInfos);
 }
 
 public static class FSHPermissions
@@ -67,6 +66,7 @@ public static class FSHPermissions
         new("Export Products", FSHAction.Export, FSHResource.Products),
         new("View Applications", FSHAction.View, FSHResource.Applications, IsBasic: true),
         new("Search Applications", FSHAction.Search, FSHResource.Applications, IsBasic: true),
+        new("Search Applicants", FSHAction.Search, FSHResource.Applications),
         new("Create Applications", FSHAction.Create, FSHResource.Applications, IsBasic: true),
         new("Update Applications", FSHAction.Update, FSHResource.Applications, IsBasic: true),
         new("Delete Applications", FSHAction.Delete, FSHResource.Applications, IsBasic: true),
@@ -91,13 +91,6 @@ public static class FSHPermissions
         new("Delete Job Postings", FSHAction.Delete, FSHResource.JobPostings),
         new("Generate Job Postings", FSHAction.Generate, FSHResource.JobPostings),
         new("Clean Job Postings", FSHAction.Clean, FSHResource.JobPostings),
-        new("View Candidate Informations", FSHAction.View, FSHResource.CandidateInfos, IsBasic: true),
-        new("Search Candidate Informations", FSHAction.Search, FSHResource.CandidateInfos, IsBasic: true),
-        new("Create Candidate Informations", FSHAction.Create, FSHResource.CandidateInfos),
-        new("Update Candidate Informations", FSHAction.Update, FSHResource.CandidateInfos),
-        new("Delete Candidate Informations", FSHAction.Delete, FSHResource.CandidateInfos),
-        new("Generate Candidate Informations", FSHAction.Generate, FSHResource.CandidateInfos),
-        new("Clean Candidate Informations", FSHAction.Clean, FSHResource.CandidateInfos),
         new("View Tenants", FSHAction.View, FSHResource.Tenants, IsRoot: true),
         new("Create Tenants", FSHAction.Create, FSHResource.Tenants, IsRoot: true),
         new("Update Tenants", FSHAction.Update, FSHResource.Tenants, IsRoot: true),
