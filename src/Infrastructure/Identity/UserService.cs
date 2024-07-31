@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
 
 namespace FSH.WebApi.Infrastructure.Identity;
 
@@ -33,6 +34,7 @@ internal partial class UserService : IUserService
     private readonly IStringLocalizer _t;
     private readonly ICurrentUser _currentUser;
     private readonly IJobService _jobService;
+    private readonly IFileService _fileService;
     private readonly IMailService _mailService;
     private readonly SecuritySettings _securitySettings;
     private readonly IEmailTemplateService _templateService;
@@ -51,6 +53,7 @@ internal partial class UserService : IUserService
         ApplicationDbContext db,
         IStringLocalizer<UserService> localizer,
         IJobService jobService,
+        IFileService fileService,
         ICurrentUser currentUser,
         IMailService mailService,
         IEmailTemplateService templateService,
@@ -69,6 +72,7 @@ internal partial class UserService : IUserService
         _db = db;
         _t = localizer;
         _jobService = jobService;
+        _fileService = fileService;
         _currentUser = currentUser;
         _mailService = mailService;
         _templateService = templateService;
@@ -161,4 +165,17 @@ internal partial class UserService : IUserService
 
         await _events.PublishAsync(new ApplicationUserUpdatedEvent(user.Id));
     }
+
+    //public async Task<bool> UploadPhotoAsync(UploadPhotoRequest request, CancellationToken cancellationToken)
+    //{
+    //    string userId = _currentUser.GetUserId().ToString();
+    //    var user = await _userManager.FindByIdAsync(userId);
+
+    //    _ = user ?? throw new NotFoundException(_t["User Not Found."]);
+
+    //    user.PhotoPath = await _fileService.UploadFileAsync(request.Photo, userId);
+
+    //    return true;
+    //}
+
 }

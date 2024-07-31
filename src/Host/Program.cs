@@ -17,6 +17,7 @@ try
 
     builder.AddConfigurations().RegisterSerilog();
     builder.Services.AddControllers();
+    builder.Services.AddScoped<IFileService, FileService>();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddApplication();
 

@@ -59,6 +59,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Databases\Host\" />
+      <Folder Include="Files\CV\" />
       <Folder Include="PushNotifications Templates\" />
     </ItemGroup>
     <ItemGroup>

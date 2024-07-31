@@ -1,10 +1,14 @@
 ﻿using System.Security.Claims;
+using System.Threading;
 using DocumentFormat.OpenXml.Spreadsheet;
+using FSH.WebApi.Application.Catalog.Applications;
 using FSH.WebApi.Application.Common.Exceptions;
 using FSH.WebApi.Application.Common.Interfaces;
 using FSH.WebApi.Application.Common.Mailing;
+using FSH.WebApi.Application.Common.Persistence;
 using FSH.WebApi.Application.Identity.Users;
 using FSH.WebApi.Domain.Common;
+using FSH.WebApi.Domain.Common.Events;
 using FSH.WebApi.Domain.Identity;
 using FSH.WebApi.Infrastructure.Auth;
 using FSH.WebApi.Shared.Authorization;
@@ -155,10 +159,10 @@ internal partial class UserService
 
         _ = user ?? throw new NotFoundException(_t["User Not Found."]);
 
-        string currentImage = user.ImageUrl ?? string.Empty;
+        string currentImage = user.PhotoPath ?? string.Empty;
         if (request.Image != null || request.DeleteCurrentImage)
         {
-            user.ImageUrl = await _fileStorage.UploadAsync<ApplicationUser>(request.Image, FileType.Image);
+            user.PhotoPath = await _fileStorage.UploadAsync<ApplicationUser>(request.Image, FileType.Image);
             if (request.DeleteCurrentImage && !string.IsNullOrEmpty(currentImage))
             {
                 string root = Directory.GetCurrentDirectory();
@@ -167,22 +171,16 @@ internal partial class UserService
         }
     }
 
-    public async Task UploadPhotoAsync(UploadPhotoRequest request)
+    public async Task UploadPhotoAsync(UploadPhotoRequest request, string userId)
     {
-        var user = await _userManager.FindByIdAsync(_currentUser.GetUserId().ToString());
+        var user = await _userManager.FindByIdAsync(userId);
 
         _ = user ?? throw new NotFoundException(_t["User Not Found."]);
 
-        string currentImage = user.ImageUrl ?? string.Empty;
-        if (request.Image != null || request.DeleteCurrentImage)
-        {
-            user.ImageUrl = await _fileStorage.UploadAsync<UserDetailsDto>(request.Image, FileType.Image);
-            if (request.DeleteCurrentImage && !string.IsNullOrEmpty(currentImage))
-            {
-                string root = Directory.GetCurrentDirectory();
-                _fileStorage.Remove(Path.Combine(root, currentImage));
-            }
-        }
+        string hostpath = Path.Combine(Directory.GetCurrentDirectory(), "Files", "Photo");
+        string fileName = await _fileService.UploadFileAsync(request.Photo, userId);
 
+        user.PhotoPath = Path.Combine(hostpath, fileName);
     }
+
 }

@@ -7,14 +7,20 @@ using FSH.WebApi.Domain.Identity;
 using FSH.WebApi.Shared.Events;
 using Microsoft.AspNetCore.Identity;
 using FSH.WebApi.Application.Catalog.Applications;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FSH.WebApi.Host.Controllers.Identity;
 
 public class PersonalController : VersionNeutralApiController
 {
     private readonly IUserService _userService;
+    private readonly IFileService _fileService;
 
-    public PersonalController(IUserService userService) => _userService = userService;
+    public PersonalController(IFileService fileService, IUserService userService)
+    {
+        _fileService = fileService;
+        _userService = userService;
+    }
 
     [HttpGet("profile")]
     [OpenApiOperation("Get profile details of currently logged in user.", "")]
@@ -40,14 +46,14 @@ public class PersonalController : VersionNeutralApiController
 
     [HttpPut("profile-photo")]
     [OpenApiOperation("Update profile photo of currently logged in user.", "")]
-    public async Task<ActionResult> UploadPhotoAsync(UploadPhotoRequest request)
+    public async Task<ActionResult> UploadPhotoAsync([FromForm] UploadPhotoRequest request)
     {
         if (User.GetUserId() is not { } userId || string.IsNullOrEmpty(userId))
         {
             return Unauthorized();
         }
 
-        await _userService.UploadPhotoAsync(request);
+        await _userService.UploadPhotoAsync(request, userId);
         return Ok();
     }
 

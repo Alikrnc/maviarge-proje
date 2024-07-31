@@ -116,7 +116,7 @@ internal class TokenService : ITokenService
             new(ClaimTypes.Surname, user.LastName ?? string.Empty),
             new(FSHClaims.IpAddress, ipAddress),
             new(FSHClaims.Tenant, _currentTenant!.Id),
-            new(FSHClaims.ImageUrl, user.ImageUrl ?? string.Empty),
+            //new(FSHClaims.ImageUrl, user.ImageUrl ?? string.Empty),
             new(ClaimTypes.MobilePhone, user.PhoneNumber ?? string.Empty)
         };
 

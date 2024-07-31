@@ -1,4 +1,6 @@
+using FSH.WebApi.Domain.Common;
 using FSH.WebApi.Domain.Identity;
+using System.IO;
 
 namespace FSH.WebApi.Domain.Catalog;
 
@@ -11,6 +13,7 @@ public class Application : AuditableEntity, IAggregateRoot
     public virtual JobPosting JobPosting { get; private set; } = default!;
     public string FirstName { get; private set; } = default!;
     public string LastName { get; private set; } = default!;
+    public string? CVPath { get; private set; }
 
     public Application()
     {
@@ -33,6 +36,18 @@ public class Application : AuditableEntity, IAggregateRoot
         if (name is not null && Name?.Equals(name) is not true) Name = name;
         if (description is not null && Description?.Equals(description) is not true) Description = description;
         if (jobpostingId.HasValue && jobpostingId.Value != Guid.Empty && !JobPostingId.Equals(jobpostingId.Value)) JobPostingId = jobpostingId.Value;
+        return this;
+    }
+
+    public Application UploadCV(string? cvpath)
+    {
+        if (cvpath is not null && CVPath?.Equals(cvpath) is not true) CVPath = cvpath;
+        return this;
+    }
+
+    public Application ClearCVPath()
+    {
+        CVPath = string.Empty;
         return this;
     }
 }

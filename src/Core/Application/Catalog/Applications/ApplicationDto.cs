@@ -10,4 +10,5 @@ public class ApplicationDto : IDto
     public Guid UserId { get; set; }
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
+    public string? CVPath { get; set; }
 }
